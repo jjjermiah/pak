@@ -1,5 +1,14 @@
 # pak (development version)
 
+* `cache_summary()`, `cache_list()`, `cache_delete()`, `cache_clean()`,
+  `meta_update()`, `meta_list()` and `meta_clean()` now honor the
+  `pkg.package_cache_dir` and `pkg.metadata_cache_dir` configuration options
+  (or their `PKG_PACKAGE_CACHE_DIR` / `PKG_METADATA_CACHE_DIR` environment
+  variable equivalents), instead of always falling back to pkgcache's
+  default per-user cache directory. `pkg_install()` and friends already
+  honored these options; the cache inspection/maintenance functions now
+  operate on the same location (#836).
+
 # pak 0.11.1
 
 * Installing a package from a GitHub release (e.g. `user/repo@*release`) or
