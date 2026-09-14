@@ -28,7 +28,9 @@ cache_summary <- function() {
 }
 
 cache_summary_internal <- function() {
-  pkgcache::pkg_cache_summary()
+  pkgcache::pkg_cache_summary(
+    cachepath = pkgdepends::current_config()$get("package_cache_dir")
+  )
 }
 
 #' @details `cache_list()` lists all (by default), or a subset of
@@ -68,7 +70,10 @@ cache_list <- function(...) {
 }
 
 cache_list_internal <- function(...) {
-  pkgcache::pkg_cache_find(...)
+  pkgcache::pkg_cache_find(
+    cachepath = pkgdepends::current_config()$get("package_cache_dir"),
+    ...
+  )
 }
 
 #' @details `cache_delete()` deletes files from the cache.
@@ -93,7 +98,10 @@ cache_delete <- function(...) {
 }
 
 cache_delete_internal <- function(...) {
-  pkgcache::pkg_cache_delete_files(...)
+  pkgcache::pkg_cache_delete_files(
+    cachepath = pkgdepends::current_config()$get("package_cache_dir"),
+    ...
+  )
 }
 
 #' @details `cache_clean()` deletes all files from the cache.
@@ -118,7 +126,9 @@ cache_clean <- function() {
 }
 
 cache_clean_internal <- function() {
-  pkgcache::pkg_cache_delete_files()
+  pkgcache::pkg_cache_delete_files(
+    cachepath = pkgdepends::current_config()$get("package_cache_dir")
+  )
 }
 
 #' Metadata cache utilities
@@ -157,6 +167,7 @@ meta_summary <- function() {
 
 meta_summary_internal <- function() {
   cmc <- pkgcache::cranlike_metadata_cache$new(
+    replica_path = pkgdepends::current_config()$get("metadata_cache_dir"),
     platforms = pkgdepends::current_config()$get("platforms"),
     cran_mirror = pkgdepends::current_config()$get("cran_mirror"),
     r_version = pkgdepends::current_config()$get("r_versions"),
@@ -205,6 +216,7 @@ meta_list <- function(pkg = NULL) {
 
 meta_list_internal <- function(pkg) {
   cmc <- pkgcache::cranlike_metadata_cache$new(
+    replica_path = pkgdepends::current_config()$get("metadata_cache_dir"),
     platforms = pkgdepends::current_config()$get("platforms"),
     cran_mirror = pkgdepends::current_config()$get("cran_mirror"),
     r_version = pkgdepends::current_config()$get("r_versions"),
@@ -240,6 +252,7 @@ meta_update <- function() {
 
 meta_update_internal <- function() {
   cmc <- pkgcache::cranlike_metadata_cache$new(
+    replica_path = pkgdepends::current_config()$get("metadata_cache_dir"),
     platforms = pkgdepends::current_config()$get("platforms"),
     cran_mirror = pkgdepends::current_config()$get("cran_mirror"),
     r_version = pkgdepends::current_config()$get("r_versions"),
@@ -284,6 +297,7 @@ meta_clean <- function(force = FALSE) {
 
 meta_clean_internal <- function() {
   cmc <- pkgcache::cranlike_metadata_cache$new(
+    replica_path = pkgdepends::current_config()$get("metadata_cache_dir"),
     platforms = pkgdepends::current_config()$get("platforms"),
     cran_mirror = pkgdepends::current_config()$get("cran_mirror"),
     r_version = pkgdepends::current_config()$get("r_versions"),
